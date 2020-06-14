@@ -1,0 +1,10 @@
+@import url(./__container/card__container.css);
+@import url(./__image/card__image.css);
+@import url(./__like/card__like.css);
+@import url(./__title/card__title.css);
+
+.card {
+  justify-self: center;
+  background-color: #fff;
+  border-radius: 10px;
+}

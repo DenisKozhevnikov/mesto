@@ -1,0 +1,9 @@
+@import url(./__button/form__button.css);
+@import url(./__handler/form__handler.css);
+@import url(./__heading/form__heading.css);
+@import url(./__item/form__item.css);
+@import url(./__items/form__items.css);
+
+.form {
+  max-width: 358px;
+}

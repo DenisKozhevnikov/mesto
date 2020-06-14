@@ -1,0 +1,10 @@
+.form__item {
+  padding: 29px 0 10px;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  outline: 0;
+  font-size: 14px;
+  line-height: 17px;
+  font-family: Inter, ‘Arial’, sans-serif;
+}
