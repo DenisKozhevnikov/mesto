@@ -10,7 +10,7 @@ let formName = formElement.querySelector(".form__item_name");
 let formAboutMe = formElement.querySelector(".form__item_about-me");
 
 function popupToggle() {
-  popup.classList.toggle("popup_opened")
+  popup.classList.toggle("popup_opened");
 }
 
 function profileFormOpen() {
