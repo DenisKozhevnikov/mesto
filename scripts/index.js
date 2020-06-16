@@ -9,28 +9,25 @@ let formElement = document.querySelector(".form");
 let formName = formElement.querySelector(".form__item_name");
 let formAboutMe = formElement.querySelector(".form__item_about-me");
 
+
 function popupToggle() {
   popup.classList.toggle("popup_opened");
-}
 
-function profileFormOpen() {
-  formName.value = profileName.textContent;
-  formAboutMe.value = profileAboutMe.textContent;
-  popupToggle();
+  if(popup.classList.contains("popup_opened")) {
+    formName.value = profileName.textContent;
+    formAboutMe.value = profileAboutMe.textContent;
+  }
 }
-
-profileEditButton.addEventListener('click', profileFormOpen);
-popupCloseButton.addEventListener('click', popupToggle);
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
 
-  let nameInput = formName.value;
-  let jobInput = formAboutMe.value;
+  profileName.textContent = formName.value;
+  profileAboutMe.textContent = formAboutMe.value;
 
-  profileName.textContent = nameInput;
-  profileAboutMe.textContent = jobInput;
   popupToggle();
 }
 
+profileEditButton.addEventListener('click', popupToggle);
+popupCloseButton.addEventListener('click', popupToggle);
 formElement.addEventListener('submit', formSubmitHandler);

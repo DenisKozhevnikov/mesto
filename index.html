@@ -9,63 +9,63 @@
 <body class="page">
   <div class="container">
     <header class="header">
-      <a href="#" class="header__logo"></a>
+      <a href="index.html" class="header__logo"></a>
     </header>
-    <main>
+    <main class="main">
       <section class="profile">
         <div class="profile__container">
           <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__info-container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit"></button>
+              <button type="button" class="profile__edit"></button>
             </div>
             <p class="profile__about-me">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-card"></button>
+        <button type="button" class="profile__add-card"></button>
       </section>
       <section class="cards">
         <article class="card">
           <img class="card__image" src="./images/building.jpg" alt="Здания">
           <div class="card__container">
             <h2 class="card__title">Здание</h2>
-            <button class="card__like"></button>
+            <button type="button" class="card__like"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/flowers.jpg" alt="Цветы">
           <div class="card__container">
             <h2 class="card__title">Цветы на поверхности</h2>
-            <button class="card__like"></button>
+            <button type="button" class="card__like"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/leaf.jpg" alt="Листья">
           <div class="card__container">
             <h2 class="card__title">Листья</h2>
-            <button class="card__like"></button>
+            <button type="button" class="card__like"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/nightcity.jpg" alt="Ночной город">
           <div class="card__container">
             <h2 class="card__title">Ночной город</h2>
-            <button class="card__like"></button>
+            <button type="button" class="card__like"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/sunflower.jpg" alt="Подсолнух">
           <div class="card__container">
             <h2 class="card__title">Подсолнух</h2>
-            <button class="card__like"></button>
+            <button type="button" class="card__like"></button>
           </div>
         </article>
         <article class="card">
           <img class="card__image" src="./images/sunset.jpg" alt="Рассвет">
           <div class="card__container">
             <h2 class="card__title">Рассвет</h2>
-            <button class="card__like"></button>
+            <button type="button" class="card__like"></button>
           </div>
         </article>
       </section>
@@ -76,16 +76,14 @@
   </div>
   <section class="popup">
     <div class="popup__container">
-      <div class="popup__close"></div>
-      <form class="form">
+      <button type="button" class="popup__close"></button>
+      <form action="#" method="post" class="form">
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__items">
           <input type="text" class="form__item form__item_name" name="name" placeholder="Имя" required>
           <input type="text" class="form__item form__item_about-me" name="about-me" placeholder="О себе" required>
         </fieldset>
-        <fieldset class="form__handler">
-          <input type="submit" class="form__button" value="Сохранить">
-        </fieldset>
+        <button type="submit" class="form__button">Сохранить</button>
       </form>
     </div>
   </section>
