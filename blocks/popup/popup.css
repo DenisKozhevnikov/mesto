@@ -1,5 +1,10 @@
 @import url(./__container/popup__container.css);
 @import url(./__close/popup__close.css);
+@import url(./__button/popup__button.css);
+@import url(./__form/popup__form.css);
+@import url(./__heading/popup__heading.css);
+@import url(./__item/popup__item.css);
+@import url(./__items/popup__items.css);
 
 .popup {
   position: fixed;

@@ -5,9 +5,9 @@ let profileAboutMe = document.querySelector(".profile__about-me");
 let popup = document.querySelector(".popup");
 let popupCloseButton = popup.querySelector(".popup__close");
 
-let formElement = document.querySelector(".form");
-let formName = formElement.querySelector(".form__item_name");
-let formAboutMe = formElement.querySelector(".form__item_about-me");
+let formElement = document.querySelector(".popup__form");
+let formName = formElement.querySelector(".popup__item_name");
+let formAboutMe = formElement.querySelector(".popup__item_about-me");
 
 
 function popupToggle() {
