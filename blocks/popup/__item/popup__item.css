@@ -8,3 +8,13 @@
   line-height: 17px;
   font-family: Inter, ‘Arial’, sans-serif;
 }
+
+@media screen and (max-width: 570px) {
+  .popup__item {
+    font-size: 12px;
+    line-height: 15px;
+    padding-top: 20px;
+    padding-bottom: 8px;
+  }
+}
+

@@ -16,3 +16,13 @@
 .popup__button:hover {
   background-color: rgba(0, 0, 0, .8);
 }
+
+
+@media screen and (max-width: 570px) {
+  .popup__button {
+    margin-top: 36px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

@@ -3,3 +3,10 @@
   padding: 0;
   border: 0;
 }
+
+
+@media screen and (max-width: 570px) {
+  .popup__items {
+    margin-top: 12px;
+  }
+}

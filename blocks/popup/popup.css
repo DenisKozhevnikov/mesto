@@ -5,6 +5,9 @@
 @import url(./__heading/popup__heading.css);
 @import url(./__item/popup__item.css);
 @import url(./__items/popup__items.css);
+@import url(./__figure/popup__figure.css);
+@import url(./__image/popup__image.css);
+@import url(./__caption/popup__caption.css);
 
 .popup {
   position: fixed;
@@ -12,10 +15,13 @@
   left: 0;
   height: 100%;
   width: 100%;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 

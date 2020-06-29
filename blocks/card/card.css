@@ -2,8 +2,11 @@
 @import url(./__image/card__image.css);
 @import url(./__like/card__like.css);
 @import url(./__title/card__title.css);
+@import url(./__like/_active/_active.css);
+@import url(./__remove/card__remove.css);
 
 .card {
+  position: relative;
   justify-self: center;
   background-color: #fff;
   border-radius: 10px;
