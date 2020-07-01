@@ -6,10 +6,19 @@
 ### Ссылка на макет
 * [Макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
 
-### Сайт где были взяты картинки
+### Используемые технологии
+* HTML
+* CSS
+* JavaScript
+
+### Используемые инструменты
+* VSCode
+* figma
+
+### Сайт где могут быть взяты картинки
 * [unsplash.com](https://unsplash.com/)
 
-### Сайт где оптимизировались картинки
+### Сайт где оптимизировать картинки
 * [tinypng.com](https://tinypng.com/)
 
 ### Описание проекта
