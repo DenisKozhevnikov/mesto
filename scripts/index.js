@@ -4,6 +4,8 @@ const profileEditButton = document.querySelector(".profile__edit");
 const profileName = document.querySelector(".profile__name");
 const profileAboutMe = document.querySelector(".profile__about-me");
 
+const popups = document.querySelectorAll('.popup');
+
 const popupProfile = document.querySelector(".popup_profile");
 const popupProfileForm = popupProfile.querySelector(".popup__form");
 const popupProfileName = popupProfileForm.querySelector(".popup__item_name");
@@ -24,8 +26,18 @@ const cardContainer = document.querySelector('.cards');
 
 const popupCloseButton = document.querySelectorAll(".popup__close");
 
-// Текущее открытое всплывающее окно
-let popupOpened;
+// Показать/закрыть всплывающее окно
+function popupToggle(popup) {
+  if(popup) {
+    popup.classList.toggle("popup_opened");
+  } else {
+    popups.forEach((el) => {
+      if(el.classList.contains('popup_opened')) {
+        el.classList.toggle('popup_opened');
+      }
+    })
+  }
+}
 
 //  Добавление карточки
 function addCard(item) {
@@ -51,7 +63,7 @@ function addCard(item) {
 function openImageCard(evt) {
   popupFigureImage.src = evt.target.src;
   popupCaption.textContent = evt.target.alt;
-  popupOpen(evt);
+  popupToggle(popupImage);
 }
 
 // Переключатель лайка у карточки
@@ -78,7 +90,7 @@ function formSubmitHandler (evt) {
   profileName.textContent = popupProfileName.value;
   profileAboutMe.textContent = popupProfileAboutMe.value;
 
-  popupClose();
+  popupToggle();
 }
 
 // Форма добавления карточки
@@ -95,7 +107,7 @@ function cardFormSubmitHandler (evt) {
     link: popupCardFormLink.value
   });
 
-  popupClose();
+  popupToggle();
 
   popupCardFormName.value = '';
   popupCardFormLink.value = '';
@@ -104,28 +116,9 @@ function cardFormSubmitHandler (evt) {
 // Добавление карточек из массива
 initialCards.forEach(addCard);
 
-// Открытие всплывающего окна
-function popupOpen(evt) {
-  if(evt.target.classList.contains('profile__edit')) {
-    popupProfile.classList.add("popup_opened");
-    popupOpened = popupProfile;
-  } else if (evt.target.classList.contains('profile__add-card')) {
-    popupCard.classList.add("popup_opened");
-    popupOpened = popupCard;
-  } else if (evt.target.classList.contains('card__image')) {
-    popupImage.classList.add("popup_opened");
-    popupOpened = popupImage;
-  }
-}
-
-// Закрытие всплывающего окна
-function popupClose() {
-  popupOpened.classList.remove("popup_opened");
-}
-
 // Слушатель кнопки редактирования профиля
-profileEditButton.addEventListener('click', function(evt) {
-  popupOpen(evt)
+profileEditButton.addEventListener('click', () => {
+  popupToggle(popupProfile);
   if(popupProfile.classList.contains("popup_opened")) {
     popupProfileName.value = profileName.textContent;
     popupProfileAboutMe.value = profileAboutMe.textContent;
@@ -133,9 +126,8 @@ profileEditButton.addEventListener('click', function(evt) {
 })
 
 // Слушатель кнопок закрытия всплывающих окон
-popupCloseButton.forEach((el) => el.addEventListener('click', popupClose));
+popupCloseButton.forEach((el) => el.addEventListener('click', () => popupToggle()));
 
-
+addCardButton.addEventListener('click', () => popupToggle(popupCard));
 popupProfileForm.addEventListener('submit', formSubmitHandler);
-addCardButton.addEventListener('click', popupOpen);
 popupCardForm.addEventListener('submit', cardFormSubmitHandler);

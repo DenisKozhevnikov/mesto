@@ -13,6 +13,7 @@
 
 @media screen and (max-width: 570px) {
   .profile__about-me {
+    max-width: 240px;
     text-align: center;
     font-size: 14px;
     line-height: 17px;
