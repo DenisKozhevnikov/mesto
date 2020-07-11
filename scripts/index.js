@@ -24,7 +24,7 @@ const popupCardFormLink = popupCardForm.querySelector(".popup__item_link");
 
 const cardContainer = document.querySelector('.cards');
 
-const popupCloseButton = document.querySelectorAll(".popup__close");
+const popupCloseButtons = document.querySelectorAll(".popup__close");
 
 // Показать/закрыть всплывающее окно
 function popupToggle(popup) {
@@ -73,7 +73,7 @@ function likeCard(evt) {
 
 // Удаление карточки
 function removeCard(evt) {
-  evt.target.parentNode.remove();
+  evt.target.closest('.card').remove();
 
   if(!cardContainer.children.length) {
     const noCardTemplate = document.querySelector('#no-card-template').content;
@@ -109,8 +109,7 @@ function cardFormSubmitHandler (evt) {
 
   popupToggle();
 
-  popupCardFormName.value = '';
-  popupCardFormLink.value = '';
+  evt.target.reset();
 }
 
 // Добавление карточек из массива
@@ -125,9 +124,29 @@ profileEditButton.addEventListener('click', () => {
   }
 })
 
-// Слушатель кнопок закрытия всплывающих окон
-popupCloseButton.forEach((el) => el.addEventListener('click', () => popupToggle()));
+addCardButton.addEventListener('click', () => {
+  popupToggle(popupCard);
+})
 
-addCardButton.addEventListener('click', () => popupToggle(popupCard));
+
+// Слушатель кнопок закрытия всплывающих окон
+popupCloseButtons.forEach((el) => {
+  el.addEventListener('click', () => popupToggle());
+})
+
+// Закрытие попапа по клику на оверлей
+popups.forEach((el) => el.addEventListener('click', (evt) => {
+  if(evt.target === evt.currentTarget) {
+    popupToggle();
+  }
+}))
+
+// При нажатии на кнопку Esc закрывает все открытые попапы
+document.addEventListener('keydown', (evt) => {
+  if(evt.key === 'Escape') {
+    popupToggle();
+  }
+})
+
 popupProfileForm.addEventListener('submit', formSubmitHandler);
 popupCardForm.addEventListener('submit', cardFormSubmitHandler);

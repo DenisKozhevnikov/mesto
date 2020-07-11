@@ -38,11 +38,13 @@
       <button type="button" class="popup__close"></button>
       <form action="#" method="post" class="popup__form">
         <h2 class="popup__heading">Редактировать профиль</h2>
-        <fieldset class="popup__items">
-          <input type="text" class="popup__item popup__item_name" name="name" placeholder="Имя" required>
-          <input type="text" class="popup__item popup__item_about-me" name="about-me" placeholder="О себе" required>
+        <fieldset class="popup__inputs">
+          <input id="name-input" type="text" class="popup__input popup__item_name" name="name" placeholder="Имя" required minlength="2" maxlength="40">
+          <span id="name-input-error" class="popup__error"></span>
+          <input id="about-me-input" type="text" class="popup__input popup__item_about-me" name="about-me" placeholder="О себе" required minlength="2" maxlength="200">
+          <span id="about-me-input-error" class="popup__error"></span>
         </fieldset>
-        <button type="submit" class="popup__button">Сохранить</button>
+        <button type="submit" class="popup__button" >Сохранить</button>
       </form>
     </div>
   </section>
@@ -51,9 +53,11 @@
       <button type="button" class="popup__close"></button>
       <form action="#" method="post" class="popup__form">
         <h2 class="popup__heading">Новое место</h2>
-        <fieldset class="popup__items">
-          <input type="text" class="popup__item popup__item_name" name="name" placeholder="Название" required>
-          <input type="text" class="popup__item popup__item_link" name="link" placeholder="Ссылка на картинку" required>
+        <fieldset class="popup__inputs">
+          <input id="title-input" type="text" class="popup__input popup__item_name" name="name" placeholder="Название" required minlength="1" maxlength="30">
+          <span id="title-input-error" class="popup__error"></span>
+          <input id="link-input" type="url" class="popup__input popup__item_link" name="link" placeholder="Ссылка на картинку" required>
+          <span id="link-input-error" class="popup__error"></span>
         </fieldset>
         <button type="submit" class="popup__button">Создать</button>
       </form>
@@ -81,6 +85,7 @@
   <template id="no-card-template">
     <article class="cards__no-card">Добавьте место</article>
   </template>
+  <script src="scripts/validation.js"></script>
   <script type="module" src="scripts/index.js"></script>
 </body>
 </html>
