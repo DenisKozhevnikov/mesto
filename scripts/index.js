@@ -44,12 +44,12 @@ function popupToggle(popup) {
 function removeValidationError(popup) {
   const popupInputs = popup.querySelectorAll('.popup__input');
   const popupErrors = popup.querySelectorAll('.popup__error');
-  popupInputs.forEach(function(el) {
+  popupInputs.forEach((el) => {
     if(el.classList.contains('popup__input_type_error')) {
       el.classList.remove('popup__input_type_error');
     }
   });
-  popupErrors.forEach(function(el) {
+  popupErrors.forEach((el) => {
     if(el.classList.contains('popup__error_visible')) {
       el.classList.remove('popup__error_visible');
     }
