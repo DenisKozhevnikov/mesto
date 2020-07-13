@@ -34,9 +34,26 @@ function popupToggle(popup) {
     popups.forEach((el) => {
       if(el.classList.contains('popup_opened')) {
         el.classList.toggle('popup_opened');
+        removeValidationError(el);
       }
-    })
+    });
   }
+}
+
+// Очистка формы от ошибок валидации
+function removeValidationError(popup) {
+  const popupInputs = popup.querySelectorAll('.popup__input');
+  const popupErrors = popup.querySelectorAll('.popup__error');
+  popupInputs.forEach(function(el) {
+    if(el.classList.contains('popup__input_type_error')) {
+      el.classList.remove('popup__input_type_error');
+    }
+  });
+  popupErrors.forEach(function(el) {
+    if(el.classList.contains('popup__error_visible')) {
+      el.classList.remove('popup__error_visible');
+    }
+  });
 }
 
 //  Добавление карточки
@@ -122,31 +139,32 @@ profileEditButton.addEventListener('click', () => {
     popupProfileName.value = profileName.textContent;
     popupProfileAboutMe.value = profileAboutMe.textContent;
   }
-})
+});
 
 addCardButton.addEventListener('click', () => {
   popupToggle(popupCard);
-})
+});
 
 
 // Слушатель кнопок закрытия всплывающих окон
 popupCloseButtons.forEach((el) => {
   el.addEventListener('click', () => popupToggle());
-})
+});
 
 // Закрытие попапа по клику на оверлей
 popups.forEach((el) => el.addEventListener('click', (evt) => {
   if(evt.target === evt.currentTarget) {
     popupToggle();
   }
-}))
+}));
 
 // При нажатии на кнопку Esc закрывает все открытые попапы
 document.addEventListener('keydown', (evt) => {
   if(evt.key === 'Escape') {
     popupToggle();
   }
-})
+});
 
 popupProfileForm.addEventListener('submit', formSubmitHandler);
 popupCardForm.addEventListener('submit', cardFormSubmitHandler);
+

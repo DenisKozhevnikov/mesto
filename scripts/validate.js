@@ -3,7 +3,7 @@ function enableValidation(objClasses) {
   const formList = Array.from(document.querySelectorAll(objClasses.formSelector));
   formList.forEach(function(formElement) {
     setEventListeners(objClasses, formElement);
-  })
+  });
 }
 
 // Установка слушателей на инпуты
@@ -16,8 +16,8 @@ function setEventListeners(objClasses, formElement) {
     inputElement.addEventListener('input', function() {
       checkInputValidity(objClasses, formElement, inputElement);
       toggleButtonState(objClasses, inputList, buttonElement);
-    })
-  })
+    });
+  });
 }
 
 // Переключение состояния кнопки
@@ -35,7 +35,7 @@ function toggleButtonState(objClasses, inputList, buttonElement) {
 function hasInvalidInput(inputList) {
   return inputList.some(function(inputElement) {
     return !inputElement.validity.valid
-  })
+  });
 }
 
 // Проверяет валидность инпута
