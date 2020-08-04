@@ -1,4 +1,6 @@
 import { initialCards } from "./initialCards.js";
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
 const profileEditButton = document.querySelector(".profile__edit");
 const profileName = document.querySelector(".profile__name");
@@ -12,10 +14,6 @@ const popupProfileName = popupProfileForm.querySelector(".popup__item_name");
 const popupProfileAboutMe = popupProfileForm.querySelector(".popup__item_about-me");
 
 const addCardButton = document.querySelector('.profile__add-card');
-
-const popupImage = document.querySelector('.popup_image');
-const popupFigureImage = popupImage.querySelector('.popup__image');
-const popupCaption = popupImage.querySelector('.popup__caption');
 
 const popupCard = document.querySelector(".popup_add-card");
 const popupCardForm = popupCard.querySelector(".popup__form");
@@ -56,63 +54,8 @@ function removeValidationError(popup) {
   });
 }
 
-class Card {
-  constructor(item, cardSelector) {
-    this._name = item.name;
-    this._link = item.link;
-    this._cardSelector = cardSelector;
-  }
-
-  _getTemplate() {
-    const cardTemplate = document.querySelector(this._cardSelector).content.cloneNode(true);
-
-    return cardTemplate
-  }
-
-  _setEvenetListeners() {
-    const cardLike = this._element.querySelector('.card__like');
-    const cardImage = this._element.querySelector('.card__image');
-    const cardRemove = this._element.querySelector('.card__remove');
-
-    cardLike.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('card__like_active');
-    })
-
-    cardImage.addEventListener('click', (evt) => {
-      popupFigureImage.src = evt.target.src;
-      popupCaption.textContent = evt.target.alt;
-      popupToggle(popupImage);
-    });
-
-    cardRemove.addEventListener('click', (evt) => {
-      evt.target.closest('.card').remove();
-
-      if(!cardContainer.children.length) {
-        const noCardTemplate = document.querySelector('#no-card-template').content;
-        const noCardElement = noCardTemplate.cloneNode(true);
-
-        cardContainer.append(noCardElement);
-      }
-    });
-  }
-
-  generateCard() {
-    this._element = this._getTemplate();
-    this._setEvenetListeners();
-
-    const cardTitle = this._element.querySelector('.card__title');
-    const cardImage = this._element.querySelector('.card__image');
-
-    cardTitle.textContent = this._name;
-    cardImage.src = this._link;
-    cardImage.alt = this._name;
-
-    return this._element
-  }
-}
-
 function addCard(item) {
-  const card = new Card(item, '#card-template')
+  const card = new Card(item, '#card-template', popupToggle)
   const cardElement = card.generateCard();
 
   cardContainer.prepend(cardElement);
@@ -186,3 +129,24 @@ document.addEventListener('keydown', (evt) => {
 popupProfileForm.addEventListener('submit', formSubmitHandler);
 popupCardForm.addEventListener('submit', cardFormSubmitHandler);
 
+
+
+const objClasses =  {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+function addValidation(obj) {
+  const formList = Array.from(document.querySelectorAll(obj.formSelector));
+
+  formList.forEach((formElement) => {
+    const form = new FormValidator(obj, formElement);
+    form.enableValidation();
+  })
+}
+
+addValidation(objClasses);
