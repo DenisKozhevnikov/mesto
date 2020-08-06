@@ -6,7 +6,7 @@ const profileEditButton = document.querySelector(".profile__edit");
 const profileName = document.querySelector(".profile__name");
 const profileAboutMe = document.querySelector(".profile__about-me");
 
-const popups = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll(".popup");
 
 const popupProfile = document.querySelector(".popup_profile");
 const popupProfileForm = popupProfile.querySelector(".popup__form");
@@ -25,9 +25,11 @@ const cardContainer = document.querySelector('.cards');
 const popupCloseButtons = document.querySelectorAll(".popup__close");
 
 // Показать/закрыть всплывающее окно
-function popupToggle(popup) {
+export function popupToggle(popup) {
   if(popup) {
     popup.classList.toggle("popup_opened");
+
+    formButtonState(popup)
   } else {
     popups.forEach((el) => {
       if(el.classList.contains('popup_opened')) {
@@ -54,15 +56,34 @@ function removeValidationError(popup) {
   });
 }
 
-function addCard(item) {
-  const card = new Card(item, '#card-template', popupToggle)
+function formButtonState(popup) {
+  const formInputs = Array.from(popup.querySelectorAll('.popup__input'));
+  const submitButton = popup.querySelector('.popup__button');
+
+  if (submitButton && formInputs.every((elem) => elem.validity.valid)) {
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('popup__button_disabled');
+  } else if(submitButton) {
+    submitButton.setAttribute('disabled', true);
+    submitButton.classList.add('popup__button_disabled');
+  }
+}
+
+function addCard(item, appendCard) {
+  const card = new Card(item, '#card-template')
   const cardElement = card.generateCard();
 
-  cardContainer.prepend(cardElement);
+  if(appendCard) {
+    cardContainer.append(cardElement);
+  } else {
+    cardContainer.prepend(cardElement);
+  }
 }
 
 // Добавление карточек из массива
-initialCards.forEach(addCard);
+initialCards.forEach((elem) => {
+  addCard(elem, true);
+})
 
 // Форма редактирования профиля
 function formSubmitHandler (evt) {
@@ -93,19 +114,39 @@ function cardFormSubmitHandler (evt) {
   evt.target.reset();
 }
 
+const validationConfig =  {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+function addValidation(validationConfig) {
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+
+  formList.forEach((formElement) => {
+    const form = new FormValidator(validationConfig, formElement);
+    form.enableValidation();
+  })
+}
+
+addValidation(validationConfig);
+
 // Слушатель кнопки редактирования профиля
 profileEditButton.addEventListener('click', () => {
-  popupToggle(popupProfile);
-  if(popupProfile.classList.contains("popup_opened")) {
+  if(!popupProfile.classList.contains("popup_opened")) {
     popupProfileName.value = profileName.textContent;
     popupProfileAboutMe.value = profileAboutMe.textContent;
   }
+
+  popupToggle(popupProfile);
 });
 
 addCardButton.addEventListener('click', () => {
   popupToggle(popupCard);
 });
-
 
 // Слушатель кнопок закрытия всплывающих окон
 popupCloseButtons.forEach((el) => {
@@ -128,25 +169,3 @@ document.addEventListener('keydown', (evt) => {
 
 popupProfileForm.addEventListener('submit', formSubmitHandler);
 popupCardForm.addEventListener('submit', cardFormSubmitHandler);
-
-
-
-const objClasses =  {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-
-function addValidation(obj) {
-  const formList = Array.from(document.querySelectorAll(obj.formSelector));
-
-  formList.forEach((formElement) => {
-    const form = new FormValidator(obj, formElement);
-    form.enableValidation();
-  })
-}
-
-addValidation(objClasses);

@@ -1,9 +1,10 @@
+import { popupToggle } from "./index.js"
+
 export class Card {
-  constructor(item, cardSelector, popupToggle) {
+  constructor(item, cardSelector) {
     this._name = item.name;
     this._link = item.link;
     this._cardSelector = cardSelector;
-    this._popupToggle = popupToggle;
 
     this._cardContainer = document.querySelector('.cards');
     this._popupImage = document.querySelector('.popup_image');
@@ -12,28 +13,29 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardTemplate = document.querySelector(this._cardSelector).content.cloneNode(true);
+    const cardTemplate = document.querySelector(this._cardSelector).content.querySelector('.card').cloneNode(true);
 
     return cardTemplate
   }
 
   _setEvenetListeners() {
-    const cardLike = this._element.querySelector('.card__like');
-    const cardImage = this._element.querySelector('.card__image');
-    const cardRemove = this._element.querySelector('.card__remove');
+    this._cardLike = this._element.querySelector('.card__like');
+    this._cardImage = this._element.querySelector('.card__image');
+    this._cardRemove = this._element.querySelector('.card__remove');
 
-    cardLike.addEventListener('click', (evt) => {
+    this._cardLike.addEventListener('click', (evt) => {
       evt.target.classList.toggle('card__like_active');
     })
 
-    cardImage.addEventListener('click', (evt) => {
+    this._cardImage.addEventListener('click', (evt) => {
       this._popupFigureImage.src = evt.target.src;
       this._popupCaption.textContent = evt.target.alt;
-      this._popupToggle(this._popupImage);
+      popupToggle(this._popupImage);
     });
 
-    cardRemove.addEventListener('click', (evt) => {
-      evt.target.closest('.card').remove();
+    this._cardRemove.addEventListener('click', (evt) => {
+      this._element.remove();
+      this._element = null;
 
       if(!this._cardContainer.children.length) {
         const noCardTemplate = document.querySelector('#no-card-template').content;
