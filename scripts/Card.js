@@ -1,4 +1,4 @@
-import { popupToggle } from "./index.js"
+import { openPopup } from './index.js'
 
 export class Card {
   constructor(item, cardSelector) {
@@ -30,7 +30,7 @@ export class Card {
     this._cardImage.addEventListener('click', (evt) => {
       this._popupFigureImage.src = evt.target.src;
       this._popupCaption.textContent = evt.target.alt;
-      popupToggle(this._popupImage);
+      openPopup(this._popupImage);
     });
 
     this._cardRemove.addEventListener('click', (evt) => {
