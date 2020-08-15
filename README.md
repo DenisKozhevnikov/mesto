@@ -1,9 +1,7 @@
 # Проект 4: Место
 
 ### Ссылка на gh-pages
-* [сайт на gh-pages](https://deniskozhevnikov.github.io/mesto/index.html)
-* или если не работает
-* [сайт на gh-pages](https://deniskozhevnikov.github.io/mesto/src/index.html)
+* [сайт на gh-pages](https://deniskozhevnikov.github.io/mesto/dist/index.html)
 
 ### Ссылка на макет
 * [Макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
