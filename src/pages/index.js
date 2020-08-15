@@ -44,12 +44,12 @@ function formButtonState(popup) {
   const formInputs = Array.from(popup.querySelectorAll('.popup__input'));
   const submitButton = popup.querySelector('.popup__button');
 
-  if (formInputs.every((elem) => elem.validity.valid)) {
-    submitButton.removeAttribute('disabled');
-    submitButton.classList.remove('popup__button_disabled');
-  } else {
+  if (!formInputs.some((elem) => elem.validity.valid)) {
     submitButton.setAttribute('disabled', true);
     submitButton.classList.add('popup__button_disabled');
+  } else {
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('popup__button_disabled');
   }
 }
 
@@ -60,18 +60,21 @@ const handleCardClick = (name, link) => {
   popupImageInstance.open(name, link)
 }
 
+const createCard = (item) => {
+  const card = new Card(item, cardTemplateId, handleCardClick);
+
+  return card.generateCard();
+}
+
 //Экземпляр начальных карточек
-const starterCards = new Section({
+const cardSection = new Section({
   items: initialCards.reverse(),
   renderer: (item) => {
-    const card = new Card(item, cardTemplateId, handleCardClick)
-
-    const cardElement = card.generateCard();
-    starterCards.addItem(cardElement);
+    cardSection.addItem(createCard(item))
   }
 }, cardContainer)
 
-starterCards.renderer();
+cardSection.renderer();
 
 const user = new UserInfo({
   nameSelector: profileName,
@@ -79,22 +82,10 @@ const user = new UserInfo({
 })
 
 //Экземпляра формы добавления карточки
-const popupCardInstance = new PopupWithForm(popupCard, (evt) => {
-    evt.preventDefault();
+const popupCardInstance = new PopupWithForm(popupCard, (inputValues) => {
+  cardSection.addItem(createCard(inputValues));
 
-    const fromPopupFormCard = new Section({
-      items: [popupCardInstance._getInputValues()],
-      renderer: (item) => {
-        const card = new Card(item, cardTemplateId, handleCardClick)
-
-        const cardElement = card.generateCard();
-        fromPopupFormCard.addItem(cardElement);
-      }
-    }, cardContainer)
-
-    fromPopupFormCard.renderer();
-
-    popupCardInstance.close();
+  popupCardInstance.close();
   }
 );
 popupCardInstance.setEventListeners();
@@ -113,10 +104,9 @@ function addValidation(validationConfig) {
 addValidation(validationConfig);
 
 //Экземпляр формы редактирования профиля
-const popupProfileInstance = new PopupWithForm(popupProfile, (evt) => {
-    evt.preventDefault();
+const popupProfileInstance = new PopupWithForm(popupProfile, (inputValues) => {
 
-    user.setUserInfo(popupProfileInstance._getInputValues());
+    user.setUserInfo(inputValues);
 
     popupProfileInstance.close();
   }
