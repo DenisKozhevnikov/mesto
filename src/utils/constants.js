@@ -27,3 +27,14 @@ export const validationConfig =  {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
+
+
+export const popupCardDelete = document.querySelector('.popup_delete-card');
+
+export const popupAvatarEdit = document.querySelector('.popup_avatar');
+
+export const profileAvatarContainer = document.querySelector('.profile__avatar-container');
+export const profileAvatar = profileAvatarContainer.querySelector('.profile__avatar');
+
+export const groupId = 'cohort-14';
+export const token = '8916ab4b-9a09-4a8e-86cf-42a282e45a8c';
