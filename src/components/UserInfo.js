@@ -3,6 +3,7 @@ export default class UserInfo {
     this._nameSelector = nameSelector;
     this._aboutMeSelector = aboutMeSelector;
     this._avatarSelector = avatarSelector;
+    this._id;
   }
 
   getUserInfo() {
@@ -12,12 +13,17 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo({name, aboutMe}) {
+  setUserInfo({name, aboutMe, id}) {
     this._nameSelector.textContent = name;
     this._aboutMeSelector.textContent = aboutMe;
+    this._id = id
   }
 
   setAvatar(imageUrl) {
     this._avatarSelector.src = imageUrl;
+  }
+
+  id() {
+    return this._id
   }
 }

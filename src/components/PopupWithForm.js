@@ -8,9 +8,7 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    const popupInputs = Array.from(this._popupFormSelector.querySelectorAll('.popup__input'));
-
-    return popupInputs.reduce((result, current) => Object.assign(result, {[current.name]:current.value}), {})
+    return Object.fromEntries(new FormData(this._popupFormSelector))
   }
 
   setEventListeners() {

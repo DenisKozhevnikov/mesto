@@ -23,7 +23,7 @@
 .card__remove{position:absolute;top:18px;right:15px;height:20px;width:18px;padding:0;outline:0;border:0;cursor:pointer;background-image:url(a274c87c0f6b553b47ad3aa5ed58a113.svg);background-color:transparent}.card__remove:hover{opacity:.6}
 .card__like-count{margin:0;font-family:Inter,‘Arial’,sans-serif;font-size:13px;line-height:16px;text-align:center}
 .card__like-container{line-height:1}
-.card{position:relative;justify-self:center;background-color:#fff;border-radius:10px;overflow:hidden}
+.card{position:relative;justify-self:center;width:100%;background-color:#fff;border-radius:10px;overflow:hidden}
 .footer__text{margin:0;font-family:Inter,‘Arial’,sans-serif;font-size:18px;line-height:22px;color:#545454}@media screen and (max-width:570px){.footer__text{font-size:14px;line-height:17px}}
 .footer{margin:67px 0 55px}@media screen and (max-width:950px){.footer{padding:0 19px}}@media screen and (max-width:570px){.footer{margin:50px 0 33px}}
 .popup__container{position:relative}

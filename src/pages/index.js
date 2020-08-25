@@ -28,7 +28,6 @@ import { popupImage,
 } from '../utils/constants.js';
 import './index.css';
 
-let userId;
 let itemId;
 let cardElement;
 
@@ -82,23 +81,22 @@ const user = new UserInfo({
 })
 
 api.getUserInfo()
-  .then(result => {
+  .then((result) => {
     user.setUserInfo({
       name: result.name,
-      aboutMe: result.about
+      aboutMe: result.about,
+      id: result._id
     });
 
     user.setAvatar(result.avatar);
-
-    userId = result._id;
   })
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 api.getItems()
-  .then(result => {
-    cardSection.renderer(result.reverse());
+  .then((result) => {
+    cardSection.renderer(result);
   })
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 // Экземпляр всплывающего окна с изображением
 const popupImageInstance = new PopupWithImage(popupImage, popupFigureImage, popupCaption);
@@ -119,26 +117,17 @@ const handleCardLikeClick = (card, isLiked, cardId) => {
   const cardLike = card.querySelector('.card__like');
   const cardLikesCount = card.querySelector('.card__like-count')
 
-  if(!isLiked) {
-    api.setLike(cardId)
-      .then(res => {
-        cardLike.classList.add('card__like_active');
-        cardLikesCount.textContent = res.likes.length;
-      })
-      .catch(err => console.log(err))
-  } else {
-    api.deleteLike(cardId)
-      .then(res => {
-        cardLike.classList.remove('card__like_active');
-        cardLikesCount.textContent = res.likes.length;
-      })
-      .catch(err => console.log(err))
-  }
+  api.toggleLike(cardId, isLiked)
+    .then((res) => {
+      cardLike.classList.toggle('card__like_active');
+      cardLikesCount.textContent = res.likes.length;
+    })
+    .catch((err) => console.log(err))
 }
 
 // Создание карточки
 const createCard = (item) => {
-  const card = new Card(item, cardTemplateId, userId, handleCardClick, cardButtonRemoveClick, handleCardLikeClick);
+  const card = new Card(item, cardTemplateId, user.id(), handleCardClick, cardButtonRemoveClick, handleCardLikeClick);
 
   return card.generateCard();
 }
@@ -155,12 +144,12 @@ const popupCardInstance = new PopupWithForm(popupCard, (inputValues) => {
   downloadNotification(popupCard)
 
   api.createItem(inputValues)
-    .then(res => {
+    .then((res) => {
       cardSection.addItem(createCard(res))
 
       popupCardInstance.close()
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => downloadNotification(popupCard, 'Создать'))
 })
 popupCardInstance.setEventListeners();
@@ -174,7 +163,7 @@ const popupCardDeleteInstance = new PopupWithForm(popupCardDelete, () => {
       cardElement.remove()
       popupCardDeleteInstance.close();
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => downloadNotification(popupCardDelete, 'Да'))
 })
 popupCardDeleteInstance.setEventListeners();
@@ -184,21 +173,21 @@ const popupAvatarEditInstance = new PopupWithForm(popupAvatarEdit, (inputValues)
   downloadNotification(popupAvatarEdit)
 
   api.changeAvatar(inputValues.link)
-    .then(res => {
+    .then((res) => {
       profileAvatar.src = res.avatar;
       popupAvatarEditInstance.close();
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => downloadNotification(popupAvatarEdit, 'Сохранить'))
 })
 popupAvatarEditInstance.setEventListeners();
 
 //Включение валидации всех форм
-function addValidation(validationConfig) {
-  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+function addValidation(configuration) {
+  const formList = Array.from(document.querySelectorAll(configuration.formSelector));
 
   formList.forEach((formElement) => {
-    const form = new FormValidator(validationConfig, formElement);
+    const form = new FormValidator(configuration, formElement);
 
     form.enableValidation();
   })
@@ -211,14 +200,14 @@ const popupProfileInstance = new PopupWithForm(popupProfile, (inputValues) => {
   downloadNotification(popupProfile)
 
   api.setUserInfo(inputValues)
-    .then(result => {
+    .then((result) => {
       user.setUserInfo({
         name: result.name,
         aboutMe: result.about
       });
       popupProfileInstance.close();
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => downloadNotification(popupProfile, 'Сохранить'))
 });
 popupProfileInstance.setEventListeners();

@@ -24,7 +24,7 @@ export default class Api {
       method: 'PATCH',
       headers:this._headers,
       body: JSON.stringify({
-        name: name,
+        name,
         about: aboutMe
         })
       })
@@ -62,26 +62,18 @@ export default class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-          name: name,
-          link: link
+          name,
+          link
         })
       })
       .then(this._response())
   }
 
-  setLike(itemId) {
+  toggleLike(itemId, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
-      method: 'PUT',
+      method: isLiked? 'DELETE' : 'PUT',
       headers: this._headers
     })
     .then(this._response())
-  }
-
-  deleteLike(itemId) {
-    return fetch(`${this._baseUrl}/cards/likes/${itemId}`, {
-      method: 'DELETE',
-      headers: this._headers
-      })
-      .then(this._response())
   }
 }
